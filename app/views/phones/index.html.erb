@@ -24,7 +24,7 @@
       <% @phones.each do |phone| %>
         <tr>
           <td><%= phone.number %></td>
-          <td><%= phone.contact %></td>
+          <td><%= phone.contact.name %></td>
           <td>
             <%= link_to phone, class: 'btn btn-info btn-sm' do %>
               <%= icon 'fas', 'eye', class: 'fa-fw' %>

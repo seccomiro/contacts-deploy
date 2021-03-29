@@ -13,6 +13,8 @@ class AddressesController < ApplicationController
   # GET /addresses/new
   def new
     @address = Address.new
+    contact = Contact.where(id: params[:contact_id]).first
+    @address.contact = contact if contact
   end
 
   # GET /addresses/1/edit
@@ -24,7 +26,7 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
 
     if @address.save
-      redirect_to @address, notice: 'Address was successfully created.'
+      redirect_to @address.contact, notice: 'Address was successfully created.'
     else
       render :new
     end
@@ -33,7 +35,7 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1
   def update
     if @address.update(address_params)
-      redirect_to @address, notice: 'Address was successfully updated.'
+      redirect_to @address.contact, notice: 'Address was successfully updated.'
     else
       render :edit
     end

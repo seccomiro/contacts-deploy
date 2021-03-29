@@ -5,6 +5,8 @@
 <div class="page-header">
   <h1>Detalhes de Contact</h1>
   <div>
+    <%= link_to 'Add Phone', new_phone_path(params: { contact_id: @contact.id }), class: 'btn btn-info' %>
+    <%= link_to 'Add Address', new_address_path(params: { contact_id: @contact.id }), class: 'btn btn-info' %>
     <%= link_to edit_contact_path(@contact), class: 'btn btn-success' do %>
       <%= icon 'fas', 'edit' %>
       Editar
@@ -27,9 +29,36 @@
   <dd><%= @contact.remark %></dd>
 
   <dt>Kind:</dt>
-  <dd><%= @contact.kind %></dd>
+  <dd><%= @contact.kind.description %></dd>
 
   <dt>Company:</dt>
-  <dd><%= @contact.company %></dd>
+  <dd><%= @contact.company.name %></dd>
 
+  <dt>Address:</dt>
+  <dd><%= @contact.address&.full_address %></dd>
+
+  <dt>Phones:</dt>
+  <% @contact.phones.each do |phone| %>
+    <dd><%= phone.number %></dd>
+  <% end %>
 </dl>
+
+<div class="row">
+  <div class="col">
+    <h3>Users that has access to this contact:</h3>
+    <% @contact.users.each do |user| %>
+      <span><%= link_to user.name, user, class: 'btn btn-link' %></span>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <h3>Attach new User</h3>
+    <%= form_with(url: users_contact_path(@contact)) do |f| %>
+      <div class="form-group">
+        <%= f.label 'User' %>
+        <%= f.collection_select :user_id, User.all, :id, :name, {}, class: 'form-control' %>
+      </div>
+      <%= f.submit 'Attach', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

@@ -13,6 +13,8 @@ class PhonesController < ApplicationController
   # GET /phones/new
   def new
     @phone = Phone.new
+    contact = Contact.where(id: params[:contact_id]).first
+    @phone.contact = contact if contact
   end
 
   # GET /phones/1/edit
@@ -24,7 +26,7 @@ class PhonesController < ApplicationController
     @phone = Phone.new(phone_params)
 
     if @phone.save
-      redirect_to @phone, notice: 'Phone was successfully created.'
+      redirect_to @phone.contact, notice: 'Phone was successfully created.'
     else
       render :new
     end
@@ -33,7 +35,7 @@ class PhonesController < ApplicationController
   # PATCH/PUT /phones/1
   def update
     if @phone.update(phone_params)
-      redirect_to @phone, notice: 'Phone was successfully updated.'
+      redirect_to @phone.contact, notice: 'Phone was successfully updated.'
     else
       render :edit
     end

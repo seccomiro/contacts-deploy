@@ -15,6 +15,7 @@
     <thead>
       <tr>
         <th>Description</th>
+        <th>Contact Count</th>
         <th></th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
       <% @kinds.each do |kind| %>
         <tr>
           <td><%= kind.description %></td>
+          <td><%= kind.contacts.count %></td>
           <td>
             <%= link_to kind, class: 'btn btn-info btn-sm' do %>
               <%= icon 'fas', 'eye', class: 'fa-fw' %>

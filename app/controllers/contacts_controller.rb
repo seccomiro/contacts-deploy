@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :set_contact, only: [:show, :edit, :update, :destroy, :users]
 
   # GET /contacts
   def index
@@ -43,6 +43,12 @@ class ContactsController < ApplicationController
   def destroy
     @contact.destroy
     redirect_to contacts_url, notice: 'Contact was successfully destroyed.'
+  end
+
+  def users
+    user = User.find(params[:user_id])
+    @contact.users << user
+    redirect_to @contact
   end
 
   private

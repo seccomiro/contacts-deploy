@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) + ' | ' : '' %>Lista de Contatos</title>
+    <title><%= content_for?(:title) ? yield(:title) + ' | ' : '' %>Contacts</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Contacts</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,6 +38,9 @@
             </li>
             <li class="nav-item">
               <%= link_to 'Phones', phones_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Users', users_path, class: 'nav-link' %>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
