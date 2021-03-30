@@ -22,6 +22,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   def create
     @contact = Contact.new(contact_params)
+    @contact.users << current_user
 
     if @contact.save
       redirect_to @contact, notice: 'Contact was successfully created.'
