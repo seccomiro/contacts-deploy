@@ -3,7 +3,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts
   def index
-    @contacts = Contact.all
+    @contacts = current_user.contacts
   end
 
   # GET /contacts/1
@@ -22,6 +22,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   def create
     @contact = Contact.new(contact_params)
+    @contact.users << current_user
 
     if @contact.save
       redirect_to @contact, notice: 'Contact was successfully created.'
@@ -54,7 +55,7 @@ class ContactsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = current_user.contacts.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
