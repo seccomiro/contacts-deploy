@@ -3,7 +3,12 @@ class ContactsController < ApplicationController
 
   # GET /contacts
   def index
-    @contacts = current_user.contacts
+    @contacts = current_user
+                .contacts
+                .includes(:address, :kind, :company)
+                .left_joins(:phones)
+                .select('contacts.*, count(*) as phones_count')
+                .group('contacts.id')
   end
 
   # GET /contacts/1
@@ -53,13 +58,13 @@ class ContactsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact
-      @contact = current_user.contacts.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact
+    @contact = current_user.contacts.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def contact_params
-      params.require(:contact).permit(:name, :email, :remark, :kind_id, :company_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def contact_params
+    params.require(:contact).permit(:name, :email, :remark, :kind_id, :company_id)
+  end
 end
