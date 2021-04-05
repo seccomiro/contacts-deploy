@@ -3,7 +3,10 @@ class CompaniesController < ApplicationController
 
   # GET /companies
   def index
-    @companies = Company.all
+    @companies = Company
+                 .joins(:contacts)
+                 .select('companies.*, count(*) as contacts_count')
+                 .group('companies.id')
   end
 
   # GET /companies/1
@@ -46,13 +49,13 @@ class CompaniesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_company
-      @company = Company.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_company
+    @company = Company.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def company_params
-      params.require(:company).permit(:name, :active)
-    end
+  # Only allow a list of trusted parameters through.
+  def company_params
+    params.require(:company).permit(:name, :active)
+  end
 end
