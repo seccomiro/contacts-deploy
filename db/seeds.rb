@@ -33,9 +33,11 @@ end
     contact.phones.create(number: Faker::PhoneNumber.unique.cell_phone)
   end
 
+  next unless Faker::Boolean.boolean
+
   contact.create_address(
     city: Faker::Address.city,
     state: Faker::Address.state,
     street: Faker::Address.street_address
-  ) if Faker::Boolean.boolean
+  )
 end
