@@ -1,0 +1,7 @@
+<%= simple_form_for :search, url: contacts_path, method: :get, html: { class: 'mb-3' } do |f| %>
+  <%= f.input :kind_id, collection: Kind.all, include_blank: true, selected: (@search[:kind_id] if @search) %>
+  <%= f.input :company_id, collection: Company.all, include_blank: true, selected: (@search[:company_id] if @search) %>
+  <%= f.input :name, input_html: { value: @search ? @search[:name] : '' } %>
+  <%= f.input :order, collection: @orders, label_method: :first, value_method: :last, selected: (@search[:order] if @search) %>
+  <%= f.button :submit, 'Search', name: nil, class: 'btn btn-primary' %>
+<% end %>

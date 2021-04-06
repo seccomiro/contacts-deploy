@@ -3,12 +3,36 @@ class ContactsController < ApplicationController
 
   # GET /contacts
   def index
+    @search = params[:search]
+    @orders = [%w[Name name], %w[Kind kind_id], %w[Company company_id]]
+
     @contacts = current_user
                 .contacts
                 .includes(:address, :kind, :company)
                 .left_joins(:phones)
                 .select('contacts.*, count(*) as phones_count')
                 .group('contacts.id')
+    # .order(:name)
+    # .order('kinds.description', :name)
+    # .order(phones_count: :desc)
+
+    if @search
+      @contacts = @contacts.where(kind_id: @search[:kind_id]) if @search.key?(:kind_id) && !@search[:kind_id].blank?
+      @contacts = @contacts.where(company_id: @search[:company_id]) if @search.key?(:company_id) && !@search[:company_id].blank?
+      @contacts = @contacts.where('contacts.name LIKE ?', "%#{@search[:name]}%") if @search.key?(:name) && !@search[:name].blank?
+      if @search.key?(:order) && !@search[:order].blank?
+        order = @search[:order].to_sym
+        order = case order
+                when :kind_id
+                  'kinds.description'
+                when :company_id
+                  'companies.name'
+                else
+                  :name
+                end
+        @contacts = @contacts.order(order)
+      end
+    end
   end
 
   # GET /contacts/1
