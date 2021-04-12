@@ -24,7 +24,7 @@ class Api::V1::PetsController < Api::V1::ApplicationController
     @pet = Pet.new(pet_params)
 
     if @pet.save
-      render :show, status: :created, location: @pet
+      render :show, status: :created, pet: @pet
     else
       render json: @pet.errors, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class Api::V1::PetsController < Api::V1::ApplicationController
   # PATCH/PUT /pets/1 or /pets/1.json
   def update
     if @pet.update(pet_params)
-      render :show, status: :ok, location: @pet
+      render :show, status: :ok, pet: @pet
     else
       render json: @pet.errors, status: :unprocessable_entity
     end
