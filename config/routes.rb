@@ -8,5 +8,13 @@ Rails.application.routes.draw do
   end
   resources :companies
   resources :kinds
+
+  get 'example', to: 'example#index'
+  namespace :api do
+    namespace :v1 do
+      get 'example', to: 'example#index'
+    end
+  end
+
   root to: 'contacts#index'
 end
