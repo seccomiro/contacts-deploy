@@ -38,9 +38,13 @@
   <dd><%= @contact.address&.full_address %></dd>
 
   <dt>Phones:</dt>
-  <% @contact.phones.each do |phone| %>
-    <dd><%= phone.number %></dd>
-  <% end %>
+  <div id="phone-list">
+    <button
+      id="btn-load-phones"
+      type="button"
+      class="btn btn-primary btn-sm"
+      data-url="<%= phones_api_v1_contact_path(@contact) %>">Load Phones</button>
+  </div>
 </dl>
 
 <div class="row">
