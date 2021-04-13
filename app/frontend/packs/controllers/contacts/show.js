@@ -1,7 +1,9 @@
 import axios from "axios";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbolinks:load", () => {
   const button = document.querySelector("#btn-load-phones");
+  if (!button) return;
+
   const phoneList = document.querySelector("#phone-list");
   button.addEventListener("click", () => {
     button.textContent = "Loading...";
