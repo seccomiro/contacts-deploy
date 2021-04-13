@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'example', to: 'example#index'
       resources :pets
+      resources :contacts, only: [] do
+        get :phones, on: :member
+      end
     end
   end
 
