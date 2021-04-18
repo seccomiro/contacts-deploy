@@ -52,6 +52,8 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <% if user_signed_in? %>
                   <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+                  <%= link_to 'Check User', check_user_path, class: 'dropdown-item' %>
+                  <%= link_to 'Checking List', check_list_user_path, class: 'dropdown-item' %>
                 <% else %>
                   <%= link_to 'Login', new_user_session_path, class: 'dropdown-item' %>
                   <%= link_to 'Register', new_user_registration_path, class: 'dropdown-item' %>

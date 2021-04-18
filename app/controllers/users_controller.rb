@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def check
+    CheckUserJob.perform_later(current_user)
+
+    redirect_to check_list_user_path
+  end
+
+  def check_list
+  end
+
   # GET /users
   def index
     @users = User.all

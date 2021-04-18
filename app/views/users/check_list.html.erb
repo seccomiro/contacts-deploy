@@ -1,0 +1,7 @@
+<h1>Checking list for <%= current_user.name %></h1>
+
+<ul>
+  <% current_user.user_checks.each do |user_check| %>
+    <li><%= user_check.checked %> (<%= user_check.created_at %>)</li>
+  <% end %>
+</ul>

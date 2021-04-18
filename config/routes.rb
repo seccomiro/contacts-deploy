@@ -1,6 +1,16 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   devise_for :users
   resources :users
+  resource :user, only: [] do
+    member do
+      get :check
+      get :check_list
+    end
+  end
   resources :phones
   resources :addresses
   resources :contacts do
