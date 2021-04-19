@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_04_18_220353) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "city"
     t.string "state"
-    t.integer "contact_id", null: false
+    t.bigint "contact_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contact_id"], name: "index_addresses_on_contact_id"
@@ -33,8 +36,8 @@ ActiveRecord::Schema.define(version: 2021_04_18_220353) do
     t.string "name"
     t.string "email"
     t.text "remark"
-    t.integer "kind_id", null: false
-    t.integer "company_id", null: false
+    t.bigint "kind_id", null: false
+    t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_contacts_on_company_id"
@@ -42,8 +45,8 @@ ActiveRecord::Schema.define(version: 2021_04_18_220353) do
   end
 
   create_table "contacts_users", id: false, force: :cascade do |t|
-    t.integer "contact_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "contact_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "kinds", force: :cascade do |t|
@@ -60,14 +63,14 @@ ActiveRecord::Schema.define(version: 2021_04_18_220353) do
 
   create_table "phones", force: :cascade do |t|
     t.string "number"
-    t.integer "contact_id", null: false
+    t.bigint "contact_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contact_id"], name: "index_phones_on_contact_id"
   end
 
   create_table "user_checks", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.boolean "checked", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
